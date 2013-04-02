@@ -1,0 +1,42 @@
+<HTML>
+<!-- Sample Reports : HTML -->
+<HEAD>
+<script Language="VBScript"> 
+Function document_onkeypress 
+if window.event.keycode = 13 then 
+     GO_Onclick() 
+End if 
+End function 
+ 
+Sub GO_OnClick 
+Document.DataForm.submit 
+end sub 
+</Script>
+
+<link rel=stylesheet href="C:\My Documents\oustyle.css" TYPE="text/css">
+</HEAD>
+<BODY TEXT="000000" BGCOLOR="FFFFFF" LINK="000000" ALINK="FF0000" VLINK="000000">
+
+
+<form name='dataform' action='LogonChange.htm'> 
+<table border="0" cellpadding="0" cellspacing="0" style="BORDER-COLLAPSE: collapse" bordercolor="#111111" width="100%" id="AutoNumber1">
+  <tr>
+    <td width="36%" align="left">
+	
+    <IMG style="WIDTH: 173px; HEIGHT: 44px" height=44 
+		hspace=1 src="../images/csilogoSMALL.jpg" width=173 vspace=1 
+		border=0><br>
+	</td>
+    <td width="49%" align="right"><INPUT style="LEFT: 131px; FLOAT: right; WIDTH: 159px; TOP: 35px; HEIGHT: 22px" type=button value="Change Password" name=GO target=screen>&nbsp;
+    </td>
+	
+
+<td width="15%" align="left"><strong><font  
+      style="FONT-FAMILY: sans-serif" fontsize=2>&nbsp;<A href="http://www.csicomplete.com/reports_collision/logout.asp" target=_top>Log Off</A> </font></strong>
+
+</td>
+  </tr>
+</table>
+</form> 
+</BODY>
+</HTML>
