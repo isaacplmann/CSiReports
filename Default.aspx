@@ -73,7 +73,6 @@ a.nav	{text-decoration: none;}
 <body bgcolor="#f1f1f1" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
 <center>
 <table id="Table_01" width="1032" height="500" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
-<!-- #include file="inc/page-header.inc" -->
 
   <!-- Start breadcrum and social media -->
 	<tr>
@@ -122,7 +121,6 @@ a.nav	{text-decoration: none;}
          <!-- End Content -->
      <!-- Start Footer -->     
         
-      <!-- #include file="inc/quick-links.inc" -->
       
       <!-- #include file="inc/footer.inc" -->
       <center>

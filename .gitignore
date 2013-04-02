@@ -2,6 +2,7 @@ bin
 App_Code
 App_Data
 aspnet_client
+/components
 /web.config
 *.zip
 *.cache

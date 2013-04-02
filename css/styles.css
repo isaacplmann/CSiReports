@@ -1,3 +1,33 @@
 ﻿body {
 }
 
+h2 {
+    font-size:18px;
+    margin:1.5em 0 .5em 0;
+}
+
+.header {
+    margin-left:300px;
+}
+.header table {
+    height:50px;
+}
+
+.logo {
+    width:90%;
+}
+
+.leftcolumn {
+position:fixed;left:0px;top:0px;bottom:0px;overflow:auto;width:280px;z-index:50;background:white;padding:10px;
+}
+
+.reportarea {
+    margin-left:300px;
+}
+
+.introtext {
+    display:block;
+    text-align:center;
+    margin-top:100px;
+    font-weight:bold;
+}

@@ -89,6 +89,7 @@ public partial class Reports_ListReports : System.Web.UI.Page
 
     public void LoadReport(Object sender, CommandEventArgs e) //MenuEventArgs e)
     {
+        intro.Visible = false;
         String path = (String)e.CommandArgument;
         String[] folders = path.Split('/');
         CrystalReportSource1.ReportDocument.Load(Server.MapPath((String)e.CommandArgument));
