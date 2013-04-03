@@ -29,7 +29,7 @@
                     </table>
         </div>
                     <div class="leftcolumn">
-                    <img class="logo" alt="CSi Logo" src="images/csilogo.jpg" /><br />
+                    <img class="logo" alt="CSi Logo" src="images/csilogo.jpg" />
                     <h2 class="username"><asp:Label runat="server" ID="username"></asp:Label></h2>
                     <asp:Repeater runat="server" ID="leftmenu" OnItemCommand="LoadReport">
                         <ItemTemplate>

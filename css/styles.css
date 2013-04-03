@@ -6,6 +6,11 @@ h2 {
     margin:1.5em 0 .5em 0;
 }
 
+h2.username {
+    text-align:center;
+    color:#A50535;
+}
+
 .header {
     margin-left:300px;
 }
@@ -14,6 +19,8 @@ h2 {
 }
 
 .logo {
+    display:block;
+    margin:auto;
     width:90%;
 }
 
