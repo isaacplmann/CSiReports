@@ -15,6 +15,14 @@ public class LocalFile
 {
     private String _name;
     private String _path;
+
+    public LocalFile() { }
+    public LocalFile(String name, String path)
+    {
+        _name = name;
+        _path = path;
+    }
+
     public String Name {
         get { return _name; }
         set { _name = value; }
@@ -31,21 +39,22 @@ public partial class Reports_ListReports : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            LocalFile f = new LocalFile();
+            username.Text = Profile.GetProfile(HttpContext.Current.User.Identity.Name).Alias;
+            
             ReportDocument doc = new ReportDocument();
             Dictionary<String, List<LocalFile>> folderlist = new Dictionary<string, List<LocalFile>>();
-            String[] files = Directory.GetFiles(Server.MapPath("/Reports"), "*.aspx", SearchOption.AllDirectories);
+            String[] files = Directory.GetFiles(Server.MapPath("/Reports"), "survey*", SearchOption.AllDirectories);
             for (int i = 0; i < files.Length; i++)
             {
-                String path = ReverseMapPath(files[i]);
-                IPrincipal principal = HttpContext.Current.User;
-                bool requiredAuthentication = UrlAuthorizationModule.CheckUrlAccessForPrincipal(path, principal, Request.HttpMethod);
-                if (requiredAuthentication)
+                if (!folderlist.ContainsKey("Survey"))
                 {
-                    LocalFile lf = new LocalFile();
-                    lf.Name = path;
-                    lf.Path = path;
+                    folderlist["Survey"] = new List<LocalFile>();
                 }
+                String path = ReverseMapPath(files[i]);
+                    LocalFile lf = new LocalFile();
+                    lf.Name = "Survey";
+                    lf.Path = path;
+                    folderlist["Survey"].Add(lf);
             }
             String[] rpts = Directory.GetFiles(Server.MapPath("/Reports"), "*.rpt", SearchOption.AllDirectories);
             for (int i = 0; i < rpts.Length; i++)
@@ -75,8 +84,14 @@ public partial class Reports_ListReports : System.Web.UI.Page
                 if (folderlist[shoplogin].Count > 0)
                 {
                     LocalFile lf = new LocalFile();
-                    lf.Name = Profile.GetProfile(shoplogin).Alias;
-                    //lf.Name = shoplogin;
+                    if (shoplogin.Equals("Survey") || shoplogin.Equals("Corporate"))
+                    {
+                        lf.Name = shoplogin;
+                    }
+                    else
+                    {
+                        lf.Name = Profile.GetProfile(shoplogin).Alias;
+                    }
                     lf.Path = "";
                     list.Add(lf);
                     list.AddRange(folderlist[shoplogin]);
@@ -91,6 +106,12 @@ public partial class Reports_ListReports : System.Web.UI.Page
     {
         intro.Visible = false;
         String path = (String)e.CommandArgument;
+
+        if (!path.EndsWith(".rpt")) {
+            Page.ClientScript.RegisterStartupScript(this.GetType(), "OpenSurveyScript", "window.open(\""+path+"\");", true);
+            return;
+        }
+
         String[] folders = path.Split('/');
         CrystalReportSource1.ReportDocument.Load(Server.MapPath((String)e.CommandArgument));
         ReportDocument doc = CrystalReportSource1.ReportDocument;

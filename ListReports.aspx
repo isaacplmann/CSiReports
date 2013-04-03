@@ -16,7 +16,9 @@
                         <tr>
                             <td style="text-align:right">
                                 <a href="changepassword.aspx">Change Password</a>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <% if(HttpContext.Current.User == null || HttpContext.Current.User.Identity.Name.Length == 0) { %>
+                    <% if(HttpContext.Current.User == null || HttpContext.Current.User.Identity.Name.Length == 0) {
+                           Response.Redirect("/Login.aspx");
+                               %>
                     <a href="/Login.aspx">Log in</a>
                     <% } else { %>
                     <a href="/Logout.aspx">Log out</a>
@@ -28,6 +30,7 @@
         </div>
                     <div class="leftcolumn">
                     <img class="logo" alt="CSi Logo" src="images/csilogo.jpg" /><br />
+                    <h2 class="username"><asp:Label runat="server" ID="username"></asp:Label></h2>
                     <asp:Repeater runat="server" ID="leftmenu" OnItemCommand="LoadReport">
                         <ItemTemplate>
                             <div>
@@ -43,7 +46,7 @@
                         EnableParameterPrompt="true" HasToggleParameterPanelButton="false"
                         Width="350px" Height="50px"/>
                     <CR:CrystalReportSource ID="CrystalReportSource1" runat="server" >
-                        <Report FileName="c:\\Users\\fitpc\\documents\\visual studio 2012\\WebSites\\CSiReports\\VTAIGTrend.rpt">
+                        <Report FileName="VTAIGTrend.rpt">
                         </Report>
                     </CR:CrystalReportSource>
         </div>
