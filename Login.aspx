@@ -5,10 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>CSi Complete Login</title>
+    <link type="text/css" rel="stylesheet" href="css/normalize.css" />
+    <link type="text/css" rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
+    <div class="centereddialog">
         <asp:Login ID="Login1" runat="server" BackColor="#F7F7DE" BorderColor="#CCCC99" BorderStyle="Solid"
             BorderWidth="1px"
              DestinationPageUrl="ListReports.aspx" Font-Names="Verdana" Font-Size="10pt" PasswordRecoveryText="Forgot Password?"

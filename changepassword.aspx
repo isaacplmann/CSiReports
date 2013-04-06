@@ -5,10 +5,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
     <title>Change Password</title>
+    <link type="text/css" rel="stylesheet" href="css/normalize.css" />
+    <link type="text/css" rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
+    <div class="centereddialog">
         <asp:ChangePassword ID="ChangePassword1" runat="server" BackColor="#F7F7DE" BorderColor="#CCCC99"
             BorderStyle="Solid" BorderWidth="1px" CancelDestinationPageUrl="default.aspx"
             Font-Names="Verdana" Font-Size="10pt" SuccessPageUrl="default.aspx">

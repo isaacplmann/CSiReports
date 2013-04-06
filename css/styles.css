@@ -38,3 +38,16 @@ position:fixed;left:0px;top:0px;bottom:0px;overflow:auto;width:280px;z-index:50;
     margin-top:100px;
     font-weight:bold;
 }
+
+.centereddialog {
+    margin-top:150px;
+}
+.centereddialog > table {
+    margin:auto;
+}
+.centereddialog th {
+    font-weight:bold;
+}
+.centereddialog td {
+    padding:5px;
+}

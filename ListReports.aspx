@@ -6,8 +6,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-    <link type="text/css" rel="stylesheet" href="css/styles.css" />
     <link type="text/css" rel="stylesheet" href="css/normalize.css" />
+    <link type="text/css" rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
     <form id="form1" runat="server">
