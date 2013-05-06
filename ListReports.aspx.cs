@@ -10,6 +10,8 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
+using System.Data.SqlClient;
 
 public class LocalFile
 {
@@ -113,18 +115,40 @@ public partial class Reports_ListReports : System.Web.UI.Page
         }
 
         String[] folders = path.Split('/');
-        CrystalReportSource1.ReportDocument.Load(Server.MapPath((String)e.CommandArgument));
+        CrystalReportSource1.ReportDocument.Load(Server.MapPath((String)e.CommandArgument),OpenReportMethod.OpenReportByDefault);
         ReportDocument doc = CrystalReportSource1.ReportDocument;
 
-        foreach (InternalConnectionInfo cn in CrystalReportSource1.ReportDocument.DataSourceConnections)
+        //String cs = ConfigurationManager.ConnectionStrings["SQL1"].ConnectionString;
+        //SqlConnectionStringBuilder decoder = new SqlConnectionStringBuilder(cs);
+        //doc.SetDatabaseLogon(decoder.UserID, decoder.Password, decoder.DataSource, decoder.InitialCatalog);
+
+        //foreach (InternalConnectionInfo cn in CrystalReportSource1.ReportDocument.DataSourceConnections)
+        //{
+        //    String cs = ConfigurationManager.ConnectionStrings["SQL1"].ConnectionString;
+        //    SqlConnectionStringBuilder decoder = new SqlConnectionStringBuilder(cs);
+        //    cn.SetConnection(decoder.DataSource, decoder.InitialCatalog, decoder.UserID, decoder.Password);
+        //}
+
+        String cs = ConfigurationManager.ConnectionStrings["SQL1"].ConnectionString;
+        SqlConnectionStringBuilder decoder = new SqlConnectionStringBuilder(cs);
+        ConnectionInfo ci = new ConnectionInfo();
+        ci.ServerName = decoder.DataSource;
+        ci.DatabaseName = decoder.InitialCatalog;
+        ci.UserID = decoder.UserID;
+        ci.Password = decoder.Password;
+
+        TableLogOnInfo tli = new TableLogOnInfo();
+        tli.ConnectionInfo = ci;
+
+        foreach (CrystalDecisions.CrystalReports.Engine.Table t in CrystalReportSource1.ReportDocument.Database.Tables)
         {
-            String cs = ConfigurationManager.ConnectionStrings["CSiSQlExpressReports"].ConnectionString;
-            SqlConnectionStringBuilder decoder = new SqlConnectionStringBuilder(cs);
-            cn.SetConnection(decoder.DataSource, decoder.InitialCatalog, decoder.UserID, decoder.Password);
+            t.ApplyLogOnInfo(tli);
         }
 
         ReportViewer.ReportSourceID = "CrystalReportSource1";
         ReportViewer.RefreshReport();
+
+        ReportViewer.ToolPanelView = CrystalDecisions.Web.ToolPanelViewType.None;
 
         try
         {
@@ -141,8 +165,8 @@ public partial class Reports_ListReports : System.Web.UI.Page
         try
         {
             // First day of last month
-            DateTime d = new DateTime(DateTime.Today.Year, DateTime.Today.AddMonths(-1).Month, 1);
-            ReportViewer.ParameterFieldInfo["Report Month"].CurrentValues.AddValue(d);
+            DateTime d = new DateTime(DateTime.Today.Year, DateTime.Today.AddMonths(-0).Month, 1);
+            ReportViewer.ParameterFieldInfo["RptMonth"].CurrentValues.AddValue(d);
         }
         catch (Exception ex)
         {
