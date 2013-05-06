@@ -43,7 +43,7 @@
         <div class="reportarea">
             <asp:Label runat="server" CssClass="introtext" ID="intro">Click on a report in the list on the left to display it.</asp:Label>
                     <CR:CrystalReportViewer ID="ReportViewer" runat="server" AutoDataBind="true" EnableDatabaseLogonPrompt="false"
-                        EnableParameterPrompt="true" HasToggleParameterPanelButton="false"
+                        EnableParameterPrompt="false" HasToggleParameterPanelButton="false"
                         Width="350px" Height="50px"/>
                     <CR:CrystalReportSource ID="CrystalReportSource1" runat="server" >
                         <Report FileName="VTAIGTrend.rpt">

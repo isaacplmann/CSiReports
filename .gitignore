@@ -6,3 +6,4 @@ aspnet_client
 /web.config
 *.zip
 *.cache
+*.rpt
