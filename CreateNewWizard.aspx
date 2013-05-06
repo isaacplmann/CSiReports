@@ -82,7 +82,7 @@
                         <br />    
                         <br />
                             
-                        <table style="font-size: 10pt; font-family: Verdana" border="0" width="400">
+<%--                        <table style="font-size: 10pt; font-family: Verdana" border="0" width="400">
                             <tr>
                                 <td style="font-weight: bold; color: white; background-color: #6b696b" align="center" colspan="2">
                                     If You Forget Your Password
@@ -120,7 +120,7 @@
                         </table>
                             
                         <br />     
-                        <br />
+                        <br />--%>
                             
                         <table style="font-size: 10pt; font-family: Verdana" border="0" width="400">
                             <tr>
@@ -137,6 +137,16 @@
                                     
                                     <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="ShopID"
                                         ErrorMessage="Enter Shop ID" ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="right">
+                                    Alias:</td>
+                                <td>
+                                    <asp:TextBox ID="Alias" runat="server"></asp:TextBox>
+                                    
+                                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="Alias"
+                                        ErrorMessage="Enter Alias" ValidationGroup="CreateUserWizard1">*</asp:RequiredFieldValidator>
                                 </td>
                             </tr>
                             <tr>

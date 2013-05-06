@@ -20,6 +20,7 @@ public partial class CreateNewWizard : System.Web.UI.Page {
 
         // Populate some Profile properties off of the create user wizard
         p.ShopID = Int32.Parse(((TextBox)CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("ShopID")).Text);
+        p.Alias = (String)((TextBox)CreateUserWizard1.CreateUserStep.ContentTemplateContainer.FindControl("Alias")).Text;
 
         // Save the profile - must be done since we explicitly created this profile instance
         p.Save();
