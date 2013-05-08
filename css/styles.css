@@ -1,35 +1,20 @@
 ﻿body {
+    font-family:Calibri,sans-serif;
 }
-
 h2 {
     font-size:18px;
     margin:1.5em 0 .5em 0;
 }
-
-h2.username {
-    text-align:center;
-    color:#A50535;
+a {
+    text-decoration:none;
 }
-
-.header {
-    margin-left:300px;
-}
-.header table {
-    height:50px;
+a:hover {
+    text-decoration:underline;
 }
 
 .logo {
     display:block;
-    margin:auto;
-    width:90%;
-}
-
-.leftcolumn {
-position:fixed;left:0px;top:0px;bottom:0px;overflow:auto;width:280px;z-index:50;background:white;padding:10px;
-}
-
-.reportarea {
-    margin-left:300px;
+    padding:10px 0;
 }
 
 .introtext {
@@ -38,6 +23,75 @@ position:fixed;left:0px;top:0px;bottom:0px;overflow:auto;width:280px;z-index:50;
     margin-top:100px;
     font-weight:bold;
 }
+
+body {
+    width:1000px;
+    margin:auto;
+}
+.nav > ul {
+    margin:0px;
+    padding:5px 0px;
+    display:inline-block;
+}
+.nav li {
+    padding:0px 12px 0 8px;
+    display:inline-block;
+    border-right: solid 1px;
+}
+.nav li:last-child {
+    border-right:none;
+}
+
+.account {
+    float:right;
+    color:#ccc;
+    font-size:12px;
+}
+.account ul {
+    border:solid 1px #ccc;
+    border-top:none;
+    margin-left:10px;
+}
+.account a {
+    color:#ccc;
+}
+.welcome {
+    color:#999;
+}
+.isActive {
+    font-weight:bold;
+}
+
+.primary {
+    border-bottom:solid 1px #ccc;
+    text-align:right;
+    font-size:18px;
+}
+.primary li {
+    border-right:none;
+    text-align:left;
+}
+.primary a {
+    color:#666;
+}
+.primary li.isActive,
+.primary li.isActive a {
+    color:#9e0d14;
+}
+.chzn-container {
+    margin-top:-4px;
+}
+
+.secondary {
+    text-align:right;
+    font-size:14px;
+    color:#c4660b;
+    margin-top:3px;
+}
+.secondary a {
+    color:#c4660b;
+}
+
 
 .centereddialog {
     margin-top:150px;

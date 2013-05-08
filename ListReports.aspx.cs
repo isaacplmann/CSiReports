@@ -3,15 +3,16 @@ using CrystalDecisions.Shared;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 using System.Data.SqlClient;
 using System.IO;
 using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Data;
-using System.Data.SqlClient;
 
 public class LocalFile
 {
@@ -37,6 +38,7 @@ public class LocalFile
 
 public partial class Reports_ListReports : System.Web.UI.Page
 {
+
     protected void Page_Init(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -80,30 +82,90 @@ public partial class Reports_ListReports : System.Web.UI.Page
                     folderlist[shoplogin].Add(lf);
                 }
             }
+            String lastshoplogin = "";
+            int shops = 0;
             List<LocalFile> list = new List<LocalFile>();
             foreach (String shoplogin in folderlist.Keys)
             {
                 if (folderlist[shoplogin].Count > 0)
                 {
                     LocalFile lf = new LocalFile();
-                    if (shoplogin.Equals("Survey") || shoplogin.Equals("Corporate"))
+                    if (shoplogin.Equals("Survey"))
                     {
-                        lf.Name = shoplogin;
+                        SurveyLink.NavigateUrl = folderlist[shoplogin][0].Path;
+                        SurveyItem.Visible = true;
+                    }
+                    else if (shoplogin.Equals("Corporate"))
+                    {
+                        ExecutiveLink.CommandArgument = shoplogin;
+                        ExecutiveItem.Visible = true;
                     }
                     else
                     {
                         lf.Name = Profile.GetProfile(shoplogin).Alias;
+                        lf.Path = shoplogin;
+                        list.Add(lf);
+
+                        shops++;
+                        lastshoplogin = shoplogin;
                     }
-                    lf.Path = "";
-                    list.Add(lf);
-                    list.AddRange(folderlist[shoplogin]);
+                    //list.AddRange(folderlist[shoplogin]);
                 }
             }
-            leftmenu.DataSource = list;
-            leftmenu.DataBind();
+            if (shops > 1)
+            {
+                ShopList.DataSource = list;
+                ShopList.DataBind();
+            }
+            else
+            {
+                MultipleShops.Visible = false;
+                ShopLink.Visible = true;
+                ShopLink.CommandArgument = lastshoplogin;
+            }
+
+            Session["folderlist"] = folderlist;
         }
     }
 
+    protected void ShowDashboard(object sender, CommandEventArgs e)
+    {
+        ChangeShopList("", DashboardItem);
+    }
+    protected void ShopList_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        String shoplogin = ShopList.SelectedItem.Value;
+        ChangeShopList(shoplogin,ShopListItem);
+    }
+    public void ChangeShopList(Object sender, CommandEventArgs e) //MenuEventArgs e)
+    {
+        String shoplogin = (String)e.CommandArgument;
+        HtmlControl selectedItem = ShopListItem;
+        if(e.CommandName.Equals("Executive")) {
+            selectedItem = ExecutiveItem;
+        }
+        ChangeShopList(shoplogin,selectedItem);
+    }
+
+    protected void ChangeShopList(String shoplogin,HtmlControl selectedItem)
+    {
+        if (shoplogin == null || shoplogin.Length == 0)
+        {
+            ReportList.DataSource = new List<LocalFile>();
+            ReportList.DataBind();
+        }
+        try
+        {
+            Dictionary<String, List<LocalFile>> folderlist = (Dictionary<String, List<LocalFile>>)Session["folderlist"];
+            if (folderlist != null)
+            {
+                ReportList.DataSource = folderlist[shoplogin];
+                ReportList.DataBind();
+            }
+        }
+        catch (Exception ex) { }
+        SelectPrimaryLink(selectedItem);
+    }
     public void LoadReport(Object sender, CommandEventArgs e) //MenuEventArgs e)
     {
         intro.Visible = false;
@@ -178,5 +240,17 @@ public partial class Reports_ListReports : System.Web.UI.Page
         string appPath = HttpContext.Current.Server.MapPath("~");
         string res = string.Format("/{0}", path.Replace(appPath, "").Replace("\\", "/"));
         return res;
+    }
+
+    private void SelectPrimaryLink(HtmlControl selected)
+    {
+        DashboardItem.Attributes["class"] = DashboardItem.Attributes["class"].Replace(" isActive", "");
+        ExecutiveItem.Attributes["class"] = ExecutiveItem.Attributes["class"].Replace(" isActive", "");
+        ShopListItem.Attributes["class"] = ShopListItem.Attributes["class"].Replace(" isActive", "");
+        SurveyItem.Attributes["class"] = SurveyItem.Attributes["class"].Replace(" isActive", "");
+
+        if(selected != null) {
+            selected.Attributes["class"] = selected.Attributes["class"].TrimEnd() + " isActive";
+        }
     }
 }
