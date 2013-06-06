@@ -65,7 +65,7 @@ if(HttpContext.Current.User == null || HttpContext.Current.User.Identity.Name.Le
         </div>
 
         <div class="reportarea">
-            <asp:Label runat="server" CssClass="introtext" ID="intro">Click on a report in the list on the left to display it.</asp:Label>
+            <asp:Label runat="server" CssClass="introtext" ID="intro">Select a report from the menu bar above.</asp:Label>
                     <CR:CrystalReportViewer ID="ReportViewer" runat="server" AutoDataBind="true" EnableDatabaseLogonPrompt="false"
                         EnableParameterPrompt="false" HasToggleParameterPanelButton="false" HasCrystalLogo="False"
                         Width="100%" Height="50px"/>
