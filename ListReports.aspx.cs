@@ -151,6 +151,7 @@ public partial class Reports_ListReports : System.Web.UI.Page
     {
         if (shoplogin == null || shoplogin.Length == 0)
         {
+            ReportViewer.Visible = false;
             ReportList.DataSource = new List<LocalFile>();
             ReportList.DataBind();
         }
@@ -159,6 +160,7 @@ public partial class Reports_ListReports : System.Web.UI.Page
             Dictionary<String, List<LocalFile>> folderlist = (Dictionary<String, List<LocalFile>>)Session["folderlist"];
             if (folderlist != null)
             {
+                ReportViewer.Visible = false;
                 ReportList.DataSource = folderlist[shoplogin];
                 ReportList.DataBind();
             }
@@ -207,6 +209,7 @@ public partial class Reports_ListReports : System.Web.UI.Page
             t.ApplyLogOnInfo(tli);
         }
 
+        ReportViewer.Visible = true;
         ReportViewer.ReportSourceID = "CrystalReportSource1";
         ReportViewer.RefreshReport();
 
@@ -233,6 +236,9 @@ public partial class Reports_ListReports : System.Web.UI.Page
         catch (Exception ex)
         {
         }
+
+        String selectedId = (String)e.CommandName;
+        SelectSecondaryLink(selectedId);
     }
      
     public string ReverseMapPath(string path)
@@ -252,5 +258,30 @@ public partial class Reports_ListReports : System.Web.UI.Page
         if(selected != null) {
             selected.Attributes["class"] = selected.Attributes["class"].TrimEnd() + " isActive";
         }
+    }
+
+    private void SelectSecondaryLink(String newSelectedId)
+    {
+        String selectedId = (String)Session["secondarySelectedId"];
+
+        if (selectedId != null && selectedId.Length > 0)
+        {
+            HtmlControl lastSelected = (HtmlControl)ReportList.FindControl(selectedId);
+            lastSelected.Attributes["class"] = lastSelected.Attributes["class"].Replace(" isActive", "");
+        }
+        try
+        {
+            HtmlControl selected = (HtmlControl)ReportList.FindControl(newSelectedId);
+            if (selected != null)
+            {
+                selected.Attributes["class"] = selected.Attributes["class"].TrimEnd() + " isActive";
+                Session["secondarySelectedId"] = selected.ID;
+            }
+            else
+            {
+                Session["secondarySelectedId"] = "";
+            }
+        }
+        catch (Exception ex) { }
     }
 }

@@ -40,10 +40,10 @@ if(HttpContext.Current.User == null || HttpContext.Current.User.Identity.Name.Le
                 <li id="ShopListItem" runat="server" class="shoplistitem">
                     <div id="MultipleShops" runat="server">
                         <asp:Label Text="Shop Report: " AssociatedControlID="ShopList" runat="server" />
-                        <asp:ListBox ID="ShopList" runat="server" CssClass="chzn-select" data-placeholder="Choose shop..."
+                        <asp:DropDownList ID="ShopList" runat="server" CssClass="chzn-select" data-placeholder="Choose shop..."
                             DataTextField="Name" DataValueField="Path" OnSelectedIndexChanged="ShopList_SelectedIndexChanged" SelectionMode="Single"
                             AutoPostBack="true">
-                        </asp:ListBox>
+                        </asp:DropDownList>
                     </div>
                     <asp:LinkButton ID="ShopLink" runat="server" Visible="false" OnCommand="ChangeShopList" CommandName="Shop">Shop Report</asp:LinkButton>
                 </li>
@@ -57,7 +57,7 @@ if(HttpContext.Current.User == null || HttpContext.Current.User.Identity.Name.Le
                 <asp:Repeater runat="server" ID="ReportList" OnItemCommand="LoadReport">
                     <ItemTemplate>
                         <li>
-                            <asp:LinkButton ID="LinkButton1" runat="server" Visible='<%# Eval("Path").ToString().Length>0 %>' CommandArgument='<%# Eval("Path") %>'><%# Eval("Name") %></asp:LinkButton>
+                            <asp:LinkButton ID="ReportLink" runat="server" Visible='<%# Eval("Path").ToString().Length>0 %>' CommandArgument='<%# Eval("Path") %>'><%# Eval("Name") %></asp:LinkButton>
                         </li>
                     </ItemTemplate>
                 </asp:Repeater>
@@ -67,8 +67,8 @@ if(HttpContext.Current.User == null || HttpContext.Current.User.Identity.Name.Le
         <div class="reportarea">
             <asp:Label runat="server" CssClass="introtext" ID="intro">Click on a report in the list on the left to display it.</asp:Label>
                     <CR:CrystalReportViewer ID="ReportViewer" runat="server" AutoDataBind="true" EnableDatabaseLogonPrompt="false"
-                        EnableParameterPrompt="false" HasToggleParameterPanelButton="false"
-                        Width="350px" Height="50px"/>
+                        EnableParameterPrompt="false" HasToggleParameterPanelButton="false" HasCrystalLogo="False"
+                        Width="100%" Height="50px"/>
                     <CR:CrystalReportSource ID="CrystalReportSource1" runat="server" >
                         <Report FileName="VTAIGTrend.rpt">
                         </Report>
